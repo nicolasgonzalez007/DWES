@@ -1,16 +1,17 @@
 <?php
+//Version que contiene arrays asociativos mostrando horas y dias (Ej:'8:15','LUNES')
 echo'<h2>Version1</h2>';
 $horario=
 [
-    '8:15'=>['LUNES'=>'IPE2','MARTES'=>'DWENC','MIERCOLES'=>'IPE2','JUEVES'=>'DWESV','VIERNES'=>'OPT2I'],
-    '9:10'=>['LUNES'=>'DWESV','MARTES'=>'DWENC','MIERCOLES'=>'DWENC','JUEVES'=>'DWESV','VIERNES'=>'OPT2A'],
+    '8:15' =>['LUNES'=>'IPE2','MARTES'=>'DWENC','MIERCOLES'=>'IPE2','JUEVES'=>'DWESV','VIERNES'=>'OPT2I'],
+    '9:10' =>['LUNES'=>'DWESV','MARTES'=>'DWENC','MIERCOLES'=>'DWENC','JUEVES'=>'DWESV','VIERNES'=>'OPT2A'],
     '10:05'=>['LUNES'=>'DWESV','MARTES'=>'DWESV','MIERCOLES'=>'DWENC','JUEVES'=>'DWESV','VIERNES'=>'DASP'],
     '11:30'=>['LUNES'=>'PIMOD','MARTES'=>'DWESV','MIERCOLES'=>'DMESV','JUEVES'=>'SASP','VIERNES'=>'DMESV'],
     '12:25'=>['LUNES'=>'DEAPW','MARTES'=>'PIMOD','MIERCOLES'=>'DEAPW','JUEVES'=>'OPT1','VIERNES'=>'DMESV'],
     '13:20'=>['LUNES'=>'DWENC','MARTES'=>'DEAPW','MIERCOLES'=>'DEAPW','JUEVES'=>'IPE2','VIERNES'=>'TUTO'],
-    '14:15'=>['LUNES'=>'DWENC']
+    '14:15'=>['LUNES'=>'DWENC','MARTES'=>'','MIERCOLES'=>'','JUEVES'=>'','VIERNES'=>'']
 ];
-$d=["LUNES","MARTES","MIERCOLES","JUEVES","VIERNES"];//Array para mostrar los dias arriba , porque si utilizase el array de arriba me mostraria muchas veces los dias 
+
 $colores = [
     'IPE2'  => '#FFD1DC', 
     'DWENC' => '#AEC6CF', 
@@ -24,32 +25,40 @@ $colores = [
     'DEAPW' => '#CB99C9', 
     'OPT1'  => '#E6E6FA', 
     'TUTO'  => '#F5DEB3',
-    ''=>'#ffffff'//Para las celdas vacias porque si no da error de undefined key desde martes a viernes  
+    ''      => '#ffffff' // Para las celdas vacias
 ];
 
 
-function mostrarHorario($horario,$d,$colores)
+function mostrarHorario($horario, $colores)
 {
-    echo"<tr><th>DIAS</th>";
-    foreach($d as $dias)//Foreach para mostrar los dias arriba
-        {
-            echo "<th>".$dias."</th>";
+    $cabeceraMostrada = false; // DECLARADA FUERA DEL FOREACH
+    
+    foreach($horario as $hora => $asignatura)
+    {
+        // 1. Cabecera (Solo se ejecuta una vez en la primera vuelta)
+        if (!$cabeceraMostrada) {
+            echo "<tr>";
+            echo "<th>HORA</th>";
+            foreach ($asignatura as $dia => $nombreAsignatura) {
+                echo "<th>" . $dia . "</th>"; // Extrae los dias directamente del array
+            }
+            echo "</tr>";
+            $cabeceraMostrada = true; 
         }
-    echo"</tr>";
-    foreach($horario as $hora=>$asignatura)//Foreach que recorre el indice hora
+
+        // 2. Fila con hora y asignaturas
+        echo "<tr><td>".$hora."</td>";
+        foreach($asignatura as $dia)
         {
-            echo "<tr><td>".$hora."</td>";
-            foreach($asignatura as $dia)//Hay que tener cuidado con poner un tipo string en lugar de array
-                {
-                    $color = $colores[$dia];//Asigna color a cada asignatura 
-                    echo "<td style='background-color:".$color.";'>".$dia."</td>";                
-                }
-                echo "</tr>";
+            $color = $colores[$dia];
+            echo "<td style='background-color:".$color.";'>".$dia."</td>";                
         }
-        
+        echo "</tr>";
+    }
 }
-echo "<table border='1'cellspacing='3'>";
-    mostrarHorario($horario,$d,$colores);
+
+echo "<table border='1' cellspacing='3'>";
+    mostrarHorario($horario, $colores);
 echo '</table>';
 
 
@@ -73,31 +82,30 @@ $horario2=
 
 
 
-function horarioNumericoAsociativo($horario2, $d, $colores)
+function horarioNumericoAsociativo($horario2, $colores)
 {
     $totalHoras = count($horario2);
-    echo "<tr><th>DIAS</th>";
-    foreach($d as $dias)
-    {
-        echo "<th>".$dias."</th>";
+    echo "<tr><th>HORA</th>";
+    foreach ($horario2[1] as $dia => $asignatura) {
+        echo "<th>" . $dia . "</th>";
     }
     echo "</tr>";
 
     for($i = 1; $i <= $totalHoras; $i++)
     {
         echo '<tr><td>'.$i.'</td>';
-        foreach($d as $dias)
+        foreach($horario2[$i] as $asig)
         {
-            $asignatura = $horario2[$i][$dias];
-            $color = $colores[$asignatura];
-            echo "<td style='background-color:".$color.";'>".$asignatura."</td>"; 
+            $color = $colores[$asig];
+            echo "<td style='background-color:".$color.";'>".$asig."</td>";
         }
+        
         echo '</tr>';
     }
 }
 
 echo "<table border='1' cellspacing='3'>";
-    horarioNumericoAsociativo($horario2, $d, $colores);
+    horarioNumericoAsociativo($horario2, $colores);
 echo '</table>';
 ?>
 
