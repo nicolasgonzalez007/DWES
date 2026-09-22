@@ -35,7 +35,7 @@ function mostrarHorario($horario, $colores)
     
     foreach($horario as $hora => $asignatura)
     {
-        // 1. Cabecera (Solo se ejecuta una vez en la primera vuelta)
+        // Cabecera (Solo se ejecuta una vez en la primera vuelta)
         if (!$cabeceraMostrada) {
             echo "<tr>";
             echo "<th>HORA</th>";
@@ -46,7 +46,7 @@ function mostrarHorario($horario, $colores)
             $cabeceraMostrada = true; 
         }
 
-        // 2. Fila con hora y asignaturas
+        // Fila con hora y asignaturas
         echo "<tr><td>".$hora."</td>";
         foreach($asignatura as $dia)
         {
