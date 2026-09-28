@@ -12,7 +12,8 @@
     echo "<td>".$fila['nombre']."</td>";
     echo '<td style="background-color: '.$fila['colorhexadecimal'].';">'.$fila['idColor'].'</td>';   
     echo "</tr>";
-    $fila = $resultado->fetch_array();
+
+    $fila = $resultado->fetch_array();//Fetch array es el metodo y $resultado es el objeto
     echo "<tr>";
     echo "<td>".$fila['codigoAsignatura']."</td>";
     echo "<td>".$fila['nombre']."</td>";
