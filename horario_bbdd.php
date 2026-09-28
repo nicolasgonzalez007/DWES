@@ -25,8 +25,6 @@
     while($fila = $resultado->fetch_array()) {
         $codigo = $fila['codigoAsignatura'];
         $hexadecimal = $fila['colorhexadecimal'];
-        
-        // Creamos la clave valor en el array
         $colores[$codigo] = $hexadecimal;
     }
 
@@ -95,8 +93,6 @@
             foreach($horario2[$i] as $asig)
             {
                 $color = '#ffffff'; // Color por defecto
-                
-                // ¡IMPORTANTE! Aquí usamos $asig, NO $dia
                 if (isset($colores[$asig])) {
                     $color = $colores[$asig];
                 }
