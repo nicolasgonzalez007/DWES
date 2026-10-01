@@ -1,0 +1,11 @@
+# Ignorar todos los archivos y directorios por defecto
+*
+
+# Excepciones: archivos que sí quieres rastrear
+!pruba.php
+!horario_dinamico.php
+!horario_bbdd.php
+!Practica2.php
+
+# Permitir que el propio .gitignore se suba al repositorio
+!.gitignore
