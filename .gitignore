@@ -6,6 +6,8 @@
 !horario_dinamico.php
 !horario_bbdd.php
 !Practica2.php
+!versionWhile.php
+!versionWhile2.php
 
 # Permitir que el propio .gitignore se suba al repositorio
 !.gitignore

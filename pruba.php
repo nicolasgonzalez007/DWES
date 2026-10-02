@@ -84,7 +84,7 @@
         echo '<td style="background-color: '.$fila['colorhexadecimal'].';">'.$fila['idColor'].'</td>';   
         echo "</tr>";}
     else{
-        echo'<h1>ERROR<h1>';
+        echo'<h1>ERROR</h1>';
     }
 
     //version todas las filas
@@ -99,7 +99,7 @@
     //Hacer tantos fetch_array como filas haya
     //Numero filas
     $filas=$resultado->num_rows;
-    echo $filas;
+    echo $filas." filas";
     echo "</table>";
 
 
